@@ -4,7 +4,7 @@ import numpy as np
 
 app = Flask(__name__, template_folder='./templates', static_folder='./static')
 
-model = joblib.load("insurance_model_new.pkl")
+model = joblib.load("rf_tuned.pkl")
 @app.route('/')
 
 def hello_world():
