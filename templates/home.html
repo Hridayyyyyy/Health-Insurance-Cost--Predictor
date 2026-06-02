@@ -1,0 +1,303 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediSure AI - Health Insurance Cost Predictor</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins',sans-serif;
+        }
+
+        body{
+            background:#07111f;
+            color:white;
+        }
+
+        .navbar{
+            width:100%;
+            padding:20px 8%;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            background:#0d1b2a;
+            border-bottom:1px solid #16324f;
+        }
+
+        .logo{
+            font-size:28px;
+            font-weight:700;
+            color:#4da3ff;
+        }
+
+        .developer{
+            color:#b0c4de;
+        }
+
+        .hero{
+            text-align:center;
+            padding:60px 20px;
+        }
+
+        .hero h1{
+            font-size:48px;
+            margin-bottom:15px;
+        }
+
+        .hero p{
+            color:#b0c4de;
+            max-width:800px;
+            margin:auto;
+        }
+
+        .container{
+            width:90%;
+            max-width:1100px;
+            margin:auto;
+            margin-bottom:50px;
+        }
+
+        .card{
+            background:#102033;
+            border-radius:20px;
+            padding:30px;
+            box-shadow:0 0 25px rgba(0,0,0,0.3);
+        }
+
+        .card h2{
+            margin-bottom:25px;
+            text-align:center;
+        }
+
+        .form-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:20px;
+        }
+
+        .input-group{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .input-group label{
+            margin-bottom:8px;
+            color:#cbd5e1;
+        }
+
+        .input-group input,
+        .input-group select{
+            padding:12px;
+            border:none;
+            border-radius:10px;
+            background:#1b2d42;
+            color:white;
+        }
+
+        .btn{
+            width:100%;
+            margin-top:30px;
+            padding:15px;
+            border:none;
+            border-radius:12px;
+            background:linear-gradient(90deg,#00c6ff,#0072ff);
+            color:white;
+            font-size:18px;
+            cursor:pointer;
+            font-weight:600;
+        }
+
+        .btn:hover{
+            opacity:0.9;
+        }
+
+        .result{
+            margin-top:25px;
+            text-align:center;
+            font-size:22px;
+            font-weight:600;
+            color:#00ff95;
+        }
+
+        .features{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:20px;
+            margin-top:50px;
+        }
+
+        .feature-card{
+            background:#102033;
+            padding:25px;
+            border-radius:15px;
+            text-align:center;
+        }
+
+        .feature-card h3{
+            margin-bottom:10px;
+            color:#4da3ff;
+        }
+
+        footer{
+            text-align:center;
+            padding:30px;
+            background:#0d1b2a;
+            margin-top:50px;
+            color:#b0c4de;
+        }
+
+        @media(max-width:768px){
+
+            .form-grid{
+                grid-template-columns:1fr;
+            }
+
+            .features{
+                grid-template-columns:1fr;
+            }
+
+            .hero h1{
+                font-size:34px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<div class="navbar">
+
+    <div class="logo">
+        🩺 MediSure AI
+    </div>
+
+    <div class="developer">
+        Developed by Hriday Sharma
+    </div>
+
+</div>
+
+<section class="hero">
+
+    <h1>Health Insurance Cost Predictor</h1>
+
+    <p>
+        An AI-powered system that predicts expected medical insurance expenses
+        based on customer health and demographic information.
+    </p>
+
+</section>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Enter Customer Information</h2>
+
+        <form action="/predict" method="POST">
+
+            <div class="form-grid">
+
+                <div class="input-group">
+                    <label>Age</label>
+                    <input type="text" name="age" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Gender</label>
+                    <select name="Gender">
+                        <option value="0">Male</option>
+                        <option value="1">Female</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>BMI</label>
+                    <input type="text" name="bmi" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Children</label>
+                    <input type="text" name="children" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Smoker</label>
+                    <select name="smoker">
+                        <option value="1">Yes</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Region</label>
+                    <select name="region">
+                        <option value="0">North West</option>
+                        <option value="1">North East</option>
+                        <option value="2">South East</option>
+                        <option value="3">South West</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <button class="btn" type="submit">
+                Predict Insurance Cost
+            </button>
+
+        </form>
+
+        <div class="result">
+            {{pred}}
+        </div>
+
+    </div>
+
+    <div class="features">
+
+        <div class="feature-card">
+            <h3>AI Prediction</h3>
+            <p>Uses Machine Learning to estimate medical insurance expenses.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Risk Analysis</h3>
+            <p>Evaluates health-related factors affecting insurance costs.</p>
+        </div>
+
+        <div class="feature-card">
+            <h3>Instant Results</h3>
+            <p>Generate premium estimates in real-time.</p>
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+
+    <h3>Medical Insurance Cost Prediction System</h3>
+
+    <p>
+        BCA Major Project • Amity University
+    </p>
+
+    <p>
+        Developed by Hriday Sharma
+    </p>
+
+</footer>
+
+</body>
+</html>
+```
